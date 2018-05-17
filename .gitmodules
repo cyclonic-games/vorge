@@ -1,0 +1,9 @@
+[submodule "ceres-core"]
+	path = ceres-core
+	url = https://github.com/eclipse-games/ceres-core.git
+[submodule "ceres-modules"]
+	path = ceres-modules
+	url = https://github.com/eclipse-games/ceres-modules.git
+[submodule "ceres-lib-std"]
+	path = ceres-lib-std
+	url = https://github.com/eclipse-games/ceres-lib-std.git
