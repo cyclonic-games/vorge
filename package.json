@@ -1,5 +1,5 @@
 {
-  "name": "ceres",
+  "name": "vorge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eclipse-games/encosy.git"
+    "url": "git+https://github.com/cyclone-games/vorge.git"
   },
   "author": "Nick Dugger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eclipse-games/encosy/issues"
+    "url": "https://github.com/cyclone-games/vorge/issues"
   },
-  "homepage": "https://github.com/eclipse-games/encosy#readme"
+  "homepage": "https://github.com/cyclone-games/vorge#readme"
 }
