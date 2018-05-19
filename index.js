@@ -1,1 +1,9 @@
-// Nothing to see here; move along.
+import Game from './core/Game';
+
+export default {
+
+    setup () {
+
+    }
+
+}
