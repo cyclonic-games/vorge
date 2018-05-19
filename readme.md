@@ -1,9 +1,12 @@
+            POWERED BY
       __   _  ____    ____   ____    ____
       ||  // //  \\  //  \\ //  \\  //  \\
       || // //   // //     //   // //___//
       ||// //   // //     //   // //
       |//  \\__// //      \\__//  \\__//
                              //
-                        \\__//  (C) 2018 Cyclone Games
+                        \\__//  (C) 2018 Cyclone Games.
+                        
                     
-Event Driven Entity/Component/System 2D Multiplayer JavaScript Game Engine
+Extensible/Modular, Event-Driven, 2D, Multiplayer, 
+Entity/Component/System JavaScript Game Engine
