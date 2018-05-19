@@ -6,19 +6,18 @@
       |//  \\__// //      \\__//  \\__//
                              //
                         \\__//  (c) 2018 Cyclone Games
-                        
-                    
-Extensible/Modular, Event-Driven, 2D, Multiplayer, 
-Entity/Component/System JavaScript Game Engine
+
+
+Extensible/Modular, Event-Driven, 2D, Multiplayer,
+Entity/Component/System-Powered JavaScript Game Engine
 
 ### `// INSTALL`
 
-We do not publish our packages on npm; as long as your package 
-manager supports github, you're good to go. For NPM, use the 
-following command:
+We do not publish our packages on any package managers; as long as your package
+manager supports github, you're good to go. For NPM, use the following command:
 
-```bash
-npm install cyclone-games/vorge
+```shell
+npm install cyclone-games/vorge --save #requires git to be installed
 ```
 
 ### `// HOW TO`
@@ -28,3 +27,5 @@ Once you've installed vorge, simply import it into your working script, like so:
 ```javascript
 import vorge from 'vorge';
 ```
+
+*[ Documentation coming soon... ]*
