@@ -5,7 +5,7 @@
       ||// //   // //     //   // //
       |//  \\__// //      \\__//  \\__//
                              //
-                        \\__//  (c) 2018 Cyclone Games
+                        \\__//  (c) 2018 Cyclonic Games
 
 
 Extensible/Modular, Event-Driven, 2D, Multiplayer,
