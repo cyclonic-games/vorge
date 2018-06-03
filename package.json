@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/cyclone-games/vorge/issues"
   },
-  "homepage": "https://github.com/cyclone-games/vorge#readme"
+  "homepage": "https://github.com/cyclone-games/vorge#readme",
+  "dependencies": {
+    "encosy": "github:cyclonic-games/encosy",
+    "picasso": "github:cyclonic-games/picasso"
+  }
 }

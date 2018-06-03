@@ -1,9 +1,9 @@
 [submodule "core"]
 	path = core
-	url = https://github.com/cyclone-games/vorge-core.git
+	url = https://github.com/cyclonic-games/vorge-core.git
 [submodule "lib-std"]
 	path = lib-std
-	url = https://github.com/cyclone-games/vorge-lib-std.git
+	url = https://github.com/cyclonic-games/vorge-lib-std.git
 [submodule "modules"]
 	path = modules
-	url = https://github.com/cyclone-games/vorge-modules.git
+	url = https://github.com/cyclonic-games/vorge-modules.git
