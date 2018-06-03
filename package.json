@@ -18,6 +18,7 @@
   "homepage": "https://github.com/cyclone-games/vorge#readme",
   "dependencies": {
     "encosy": "github:cyclonic-games/encosy",
-    "picasso": "github:cyclonic-games/picasso"
+    "picasso": "github:cyclonic-games/picasso",
+    "std": "github:ndugger/std-js"
   }
 }
