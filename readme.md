@@ -17,7 +17,7 @@ We do not publish our packages on any package managers; as long as your package
 manager supports github, you're good to go. For NPM, use the following command:
 
 ```shell
-npm install cyclone-games/vorge --save #requires git to be installed
+npm install cyclonic-games/vorge --save #requires git to be installed
 ```
 
 ### `// HOW TO`

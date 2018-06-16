@@ -8,17 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyclone-games/vorge.git"
+    "url": "git+https://github.com/cyclonic-games/vorge.git"
   },
   "author": "Nick Dugger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cyclone-games/vorge/issues"
+    "url": "https://github.com/cyclonic-games/vorge/issues"
   },
-  "homepage": "https://github.com/cyclone-games/vorge#readme",
+  "homepage": "https://github.com/cyclonic-games/vorge#readme",
   "dependencies": {
     "encosy": "github:cyclonic-games/encosy",
-    "picasso": "github:cyclonic-games/picasso",
-    "std": "github:ndugger/std-js"
+    "picasso": "github:cyclonic-games/picasso"
   }
 }
