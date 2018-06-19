@@ -1,0 +1,43 @@
+{
+    "name": "std",
+    "version": "1.0.0",
+    "description": "Standard library of entities, components, and systems for vorge",
+    "meta": {
+        "id": null,
+        "url": "cyclonic-games/vorge-lib-std",
+        "license": "MIT"
+    },
+    "components": [
+        "data",
+        "experience",
+        "health",
+        "name",
+        "position",
+        "quantity",
+        "texture"
+    ],
+    "entities": [
+        "player"
+    ],
+    "plugins": [
+        {
+            "name": "common",
+            "environment": "client",
+            "dependencies": [ ]
+        },
+        {
+            "name": "electron",
+            "environment": "client",
+            "dependencies": [ "common" ]
+        },
+        {
+            "name": "offline",
+            "environment": "client",
+            "dependencies": [ ]
+        }
+    ],
+    "systems": [
+        "move",
+        "render"
+    ]
+}
