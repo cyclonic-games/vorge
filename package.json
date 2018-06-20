@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "git submodule init && git submodule update"
+    "install": "git submodule init && git submodule update",
+    "_": "webpack && http-server _/"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "dependencies": {
     "encosy": "github:cyclonic-games/encosy",
     "picasso": "github:cyclonic-games/picasso"
+  },
+  "devDependencies": {
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
   }
 }

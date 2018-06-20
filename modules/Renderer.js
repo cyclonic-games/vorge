@@ -1,5 +1,5 @@
-const Module = require('vorge/core/Module');
-const WebGL = require('vorge/core/WebGL');
+const Module = require('../core/Module');
+const WebGL = require('../core/WebGL');
 
 const blank = document.createElement('canvas');
 blank.width = 1;

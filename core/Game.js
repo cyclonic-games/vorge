@@ -1,17 +1,17 @@
-const Event = require('vorge/core/Event');
+const Event = require('./Event');
 
-const AssetManager = require('vorge/modules/AssetManager');
-const Camera = require('vorge/modules/Camera');
-const Connection = require('vorge/modules/Connection');
-const DeviceManager = require('vorge/modules/DeviceManager');
-const Initializer = require('vorge/modules/Initializer');
-const Loop = require('vorge/modules/Loop');
-const Player = require('vorge/modules/Player');
-const Renderer = require('vorge/modules/Renderer');
-const Settings = require('vorge/modules/Settings');
-const TaskManager = require('vorge/modules/TaskManager');
-const Viewport = require('vorge/modules/Viewport');
-const World = require('vorge/modules/World');
+const AssetManager = require('../modules/AssetManager');
+const Camera = require('../modules/Camera');
+const Connection = require('../modules/Connection');
+const DeviceManager = require('../modules/DeviceManager');
+const Initializer = require('../modules/Initializer');
+const Loop = require('../modules/Loop');
+const Player = require('../modules/Player');
+const Renderer = require('../modules/Renderer');
+const Settings = require('../modules/Settings');
+const TaskManager = require('../modules/TaskManager');
+const Viewport = require('../modules/Viewport');
+const World = require('../modules/World');
 
 module.exports = class Game extends Event.Emitter {
 

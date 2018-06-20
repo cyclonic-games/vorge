@@ -1,7 +1,7 @@
-const Component = require('vorge/core/Component');
-const Entity = require('vorge/core/Entity');
-const Module = require('vorge/core/Module');
-const System = require('vorge/core/System');
+const Component = require('../core/Component');
+const Entity = require('../core/Entity');
+const Module = require('../core/Module');
+const System = require('../core/System');
 
 const scripts = new Map();
 

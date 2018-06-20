@@ -4,7 +4,7 @@
     "description": "Standard library of entities, components, and systems for vorge",
     "meta": {
         "id": null,
-        "url": "cyclonic-games/vorge-lib-std",
+        "url": "cyclonic-games/vorge",
         "license": "MIT"
     },
     "components": [
@@ -22,17 +22,19 @@
     "plugins": [
         {
             "name": "common",
-            "environment": "client",
+            "env": "client",
             "dependencies": [ ]
         },
         {
             "name": "electron",
-            "environment": "client",
-            "dependencies": [ "common" ]
+            "env": "client",
+            "dependencies": [
+                "common"
+            ]
         },
         {
             "name": "offline",
-            "environment": "client",
+            "env": "client",
             "dependencies": [ ]
         }
     ],

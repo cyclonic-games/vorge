@@ -1,4 +1,4 @@
-const Event = require('vorge/core/Event');
+const Event = require('./Event');
 
 const modules = new Map();
 

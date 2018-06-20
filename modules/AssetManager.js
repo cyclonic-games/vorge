@@ -1,4 +1,4 @@
-const Module = require('vorge/core/Module');
+const Module = require('../core/Module');
 
 module.exports = class AssetManager extends Module {
 
