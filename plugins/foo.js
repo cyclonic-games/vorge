@@ -10,4 +10,6 @@ module.exports = new Plugin('foo', game => {
             z: 0
         }
     });
+    
+    std.systems.render.run(player);
 });
