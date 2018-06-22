@@ -5,7 +5,7 @@ const Camera = require('../modules/Camera');
 const Connection = require('../modules/Connection');
 const DeviceManager = require('../modules/DeviceManager');
 const Initializer = require('../modules/Initializer');
-const LibraryManager - require('../modules/LibraryManager');
+const LibraryManager = require('../modules/LibraryManager');
 const Loop = require('../modules/Loop');
 const Player = require('../modules/Player');
 const Renderer = require('../modules/Renderer');
