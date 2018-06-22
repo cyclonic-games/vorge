@@ -31,7 +31,13 @@ import Game from 'vorge/core/Game';
 Once you have it imported, you're ready to get making your game!
 
 ```javascript
+const std = require('vorge/libraries/std');
+const sfx = require('vorge/libraries/sfx');
+
 const game = new Game('My Game Title');
+
+game.libraries.install(std);
+game.libraries.install(sfx);
 
 game.subscribe('play').forEach(() => {
     console.log('game is being played');
