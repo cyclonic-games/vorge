@@ -1,7 +1,7 @@
 const Plugin = require('../core/Plugin');
 
 module.exports = new Plugin('foo', game => {
-    const std = game.library.use('std');
+    const std = game.libraries.use('std');
     
     const player = std.entities.player.create({
         position: {
