@@ -1,4 +1,3 @@
-import String from 'std/String';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('name', String);
+module.exports = new Component('name', String);

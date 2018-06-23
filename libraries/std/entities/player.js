@@ -1,16 +1,16 @@
-import Entity from 'ceres/core/Entity';
+const Entity = require('../../../core/Entity');
 
-import experience from '../components/experience';
-import health from '../components/health';
-import input from '../components/input';
-import name from '../components/name';
-import position from '../components/position';
-import texture from '../components/texture';
+const experience = require('../components/experience');
+const health = require('../components/health');
+// import input from '../components/input';
+const name = require('../components/name');
+const position = require('../components/position');
+const texture = require('../components/texture');
 
-export default new Entity('player', [
+module.exports = new Entity('player', [
     experience,
     health,
-    input,
+    // input,
     name,
     position,
     texture

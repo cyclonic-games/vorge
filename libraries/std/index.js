@@ -5,8 +5,7 @@ const texture = require('./components/texture');
 
 const player = require('./entities/player');
 
-const move = require('./systems/move');
-const render = require('./systems/render');
+const render2d = require('./systems/render2d');
 
 module.exports = new Library('std', {
     components: [
@@ -17,7 +16,6 @@ module.exports = new Library('std', {
         player
     ],
     systems: [
-        move,
-        render
+        render2d
     ]
 });

@@ -1,7 +1,6 @@
-import Number from 'std/Number';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('position', {
+module.exports = new Component('position', {
     x: Number,
     y: Number,
     z: Number

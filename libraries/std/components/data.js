@@ -1,4 +1,3 @@
-import Object from 'std/Object';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('data', Object);
+module.exports = new Component('data', Object);

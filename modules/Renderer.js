@@ -15,7 +15,7 @@ module.exports = class Renderer extends Module {
         super(name, game);
 
         this.dimensions = 2;
-        this.engine = null;
+        this.webgl = null;
         this.layers = [ ];
     }
 
@@ -27,32 +27,32 @@ module.exports = class Renderer extends Module {
     }
 
     adjust () {
-        this.engine.viewport(0, 0, this.game.viewport.canvas.width, this.game.viewport.canvas.height);
-        this.engine.uniform('vorge_Resolution', new Float32Array([
+        this.webgl.viewport(0, 0, this.game.viewport.canvas.width, this.game.viewport.canvas.height);
+        this.webgl.uniform('vorge_Resolution', new Float32Array([
             this.game.viewport.canvas.width,
             this.game.viewport.canvas.height
         ]));
     }
 
     attach () {
-        this.engine = new WebGL(this.game.viewport.canvas);
+        this.webgl = new WebGL(this.game.viewport.canvas);
     }
 
     bind (name, shaders) {
 
-        if (name in this.engine.programs) {
-            return this.engine.useProgram(name);
+        if (name in this.webgl.programs) {
+            return this.webgl.useProgram(name);
         }
 
-        this.engine.initialize(name, ...shaders);
+        this.webgl.initialize(name, ...shaders);
     }
 
     input (name, value) {
-        this.engine.input(name, value);
+        this.webgl.input(name, value);
     }
 
     uniform (name, value) {
-        this.engine.uniform(name, value);
+        this.webgl.uniform(name, value);
     }
 
     dimensionalize (n) {
@@ -60,7 +60,7 @@ module.exports = class Renderer extends Module {
     }
 
     clear () {
-        this.engine.clear();
+        this.webgl.clear();
     }
 
     draw (object) {
@@ -68,9 +68,9 @@ module.exports = class Renderer extends Module {
             case 2: {
                 const { size, position, texture } = object;
 
-                this.engine.uniform('vorge_Texture', texture || blank);
+                this.webgl.uniform('vorge_Texture', texture || blank);
 
-                this.engine.input('vorge_Sample', new Float32Array([
+                this.webgl.input('vorge_Sample', new Float32Array([
                     0, 0,
                     1, 0,
                     0, 1,
@@ -79,7 +79,7 @@ module.exports = class Renderer extends Module {
                     1, 1
                 ]));
 
-                this.engine.input('vorge_Position', new Float32Array([
+                this.webgl.input('vorge_Position', new Float32Array([
                     position.x, position.y,
                     position.x + size.width, position.y,
                     position.x, position.y + size.height,
@@ -88,7 +88,7 @@ module.exports = class Renderer extends Module {
                     position.x + size.width, position.y + size.height
                 ]));
 
-                this.engine.draw(6);
+                this.webgl.draw(6);
 
                 break;
             }

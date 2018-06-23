@@ -1,4 +1,4 @@
-const Event = require('../../../../../core/Event');
+const Event = require('../../../core/Event');
 
 module.exports = class Mouse extends Event.Emitter {
 

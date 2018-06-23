@@ -1,4 +1,4 @@
-const WebGL = require('../../../../../../core/WebGL');
+const WebGL = require('../../../../core/WebGL');
 
 module.exports = new WebGL.Shader('fragment', `
     precision mediump float;

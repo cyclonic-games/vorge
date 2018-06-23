@@ -1,20 +1,34 @@
 const Library = require('../core/Library');
 const Module = require('../core/Module');
 
+const std = require('../libraries/std');
+
 module.exports = class LibraryManager extends Module {
-    
+
     constructor (name, game) {
         super(name, game);
-        
+
         this.collection = new Set();
+
+        this.enable(std);
     }
-    
-    install (lib) {
-        if (lib instanceof Library) this.collection.add(lib);
-        else throw new TypeError('Invalid Library');
+
+    enable (lib) {
+        if (lib instanceof Library) {
+            this.collection.add(lib.catalogue(this.game));
+        }
+        else {
+            throw new TypeError('Invalid Library');
+        }
     }
-    
+
     use (name) {
-        return Array.from(this.collection).find(lib => lib.kind === name);
+        const lib = Array.from(this.collection).find(lib => lib.kind === name);
+
+        if (!lib) {
+            console.warn(`Missing library: ${ name }`);
+        }
+
+        return lib;
     }
 }

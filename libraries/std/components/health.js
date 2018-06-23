@@ -1,7 +1,6 @@
-import Number from 'std/Number';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('health', {
+module.exports = new Component('health', {
     now: Number,
     max: Number
 });

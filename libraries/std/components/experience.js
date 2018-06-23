@@ -1,4 +1,3 @@
-import Number from 'std/Number';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('experience', Number);
+module.exports = new Component('experience', Number);

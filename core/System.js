@@ -1,3 +1,8 @@
-const { System } = require('encosy');
+const EnCoSy = require('encosy');
 
-module.exports = System;
+module.exports = class System extends EnCoSy.System {
+
+    bind (game) {
+        this.actions = this.actions.map(action => action.bind(undefined, game));
+    }
+};

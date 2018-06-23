@@ -1,8 +1,6 @@
-import Boolean from 'std/Boolean';
-import Object from 'std/Object';
-import Component from 'ceres/Component';
+const Component = require('../../../core/Component');
 
-export default new Component('texture', {
+module.exports = new Component('texture', {
     data: Object,
     fill: Boolean,
     clip: Object
