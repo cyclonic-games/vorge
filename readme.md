@@ -1,12 +1,13 @@
-            POWERED BY
-      __   _  ____    ____   ____    ____
-      ||  // //  \\  //  \\ //  \\  //  \\
-      || // //   // //     //   // //___//
-      ||// //   // //     //   // //
-      |//  \\__// //      \\__//  \\__//
-                             //
-                        \\__//  (c) 2018 Cyclonic Games
-
+```
+          POWERED BY
+    __   _  ____    ____   ____    ____
+    ||  // //  \\  //  \\ //  \\  //  \\
+    || // //   // //     //   // //___//
+    ||// //   // //     //   // //
+    |//  \\__// //      \\__//  \\__//
+                           //
+                      \\__//
+```
 
 Extensible/Modular, Event-Driven, 2D, Multiplayer,
 Entity/Component/System-Powered JavaScript Game Engine
