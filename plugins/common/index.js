@@ -86,15 +86,22 @@ module.exports = new Plugin('common', game => {
         game.renderer.bind('default', [ fragment, vertex ]);
     });
 
+    game.connection.subscribe('handshake').forEach(() => {
+        game.connection.send({ name: 'authenticate', details: [ 'admin', '1234' ] });
+    });
+
     game.loop.start();
     game.viewport.mount(container);
     game.viewport.resize({ width: 1024, height: 576 });
 
-    game.tasks.subscribe('ping').forEach(method => {
-        const [ details ] = method.arguments;
-        console.log(`[ task: ping ] [ ${ Date.now() } ] ${ details }`);
-        game.connection.send([ { "name": "ping", "details": { } } ]);
-    });
+    // game.tasks.subscribe('ping').forEach(method => {
+    //     const [ details ] = method.arguments;
+    //     console.log(`[ task: ping ] [ ${ Date.now() } ] ${ details }`);
+    //     game.connection.send([ { "name": "ping", "details": { } } ]);
+    //
+    //     // game.connection.send([ { name: 'createAccount', details: [ 'admin', '1234' ] } ]);
+    //
+    // });
 
     render(game);
 

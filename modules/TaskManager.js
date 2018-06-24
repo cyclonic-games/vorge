@@ -3,12 +3,11 @@ const Module = require('../core/Module');
 module.exports = class TaskManager extends Module {
 
     connect (game) {
-        game.connection.subscribe('message').forEach(method => this.execute(method.arguments[ 0 ]));
+        game.connection.subscribe('message').forEach(method => this.execute(...method.arguments));
     }
 
-    execute (tasks) {
-        for (const task of tasks) {
-            this.emit(task.name, [ task.details ]);
-        }
+    execute (message) {
+        const { origin, task } = message;
+        this.emit(task.name, [ origin, task.details ]);
     }
 }

@@ -26,12 +26,12 @@ module.exports = class AssetManager extends Module {
         switch (type) {
             case 'image': {
                 const image = new Image();
-                image.src = Url.createObjectURL(binary);
+                image.src = URL.createObjectURL(binary);
                 this.images.set(filename, image);
                 break;
             }
             case 'audio': {
-                const audio = new Audio(Url.createObjectURL(binary));
+                const audio = new Audio(URL.createObjectURL(binary));
                 this.audios.set(filename, audio);
                 break;
             }
