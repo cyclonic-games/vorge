@@ -8,14 +8,14 @@ module.exports = class LibraryManager extends Module {
     constructor (name, game) {
         super(name, game);
 
-        this.collection = new Set();
+        this.collection = new Map();
 
         this.enable(std);
     }
 
     enable (lib) {
         if (lib instanceof Library) {
-            this.collection.add(lib.catalogue(this.game));
+            this.collection.set(lib.kind, lib.catalogue(this.game));
         }
         else {
             throw new TypeError('Invalid Library');
@@ -23,7 +23,7 @@ module.exports = class LibraryManager extends Module {
     }
 
     use (name) {
-        const lib = Array.from(this.collection).find(lib => lib.kind === name);
+        const lib = this.collection.get(name);
 
         if (!lib) {
             console.warn(`Missing library: ${ name }`);
