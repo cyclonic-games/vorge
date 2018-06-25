@@ -7,7 +7,7 @@ module.exports = class TaskManager extends Module {
     }
 
     execute (message) {
-        const { origin, task } = message;
-        this.emit(task.name, [ origin, task.details ]);
+        const { origin, task = { } } = message;
+        this.emit(task.name || 'unknown', [ origin, task ]);
     }
 }

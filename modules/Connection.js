@@ -37,9 +37,9 @@ module.exports = class Connection extends Module {
         this.socket.send(JSON.stringify({ origin, task }));
     }
 
-    fetch (path, options) {
+    fetch (path, options = { }) {
         return fetch(`http://${ this.host }/${ path }`, Object.assign(options, {
-            headers: Object.assign(options.headers, {
+            headers: Object.assign(options.headers || { }, {
                 authorization: `connection ${ this.id }`
             })
         }));

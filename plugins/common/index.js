@@ -90,6 +90,12 @@ module.exports = new Plugin('common', game => {
         game.connection.send({ name: 'authenticate', details: [ 'admin', '1234' ] });
     });
 
+    game.tasks.subscribe('authorize').forEach(() => {
+        game.connection.fetch('assets/ascii.txt').then(response => response.text()).then(text => {
+            console.log(text);
+        });
+    })
+
     game.loop.start();
     game.viewport.mount(container);
     game.viewport.resize({ width: 1024, height: 576 });
