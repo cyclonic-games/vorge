@@ -6,6 +6,7 @@ module.exports = class Viewport extends Module {
         super(name, game);
 
         this.canvas = document.createElement('canvas');
+        this.canvas.style.display = 'block';
         this.ratio = 1;
     }
 

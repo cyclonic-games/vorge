@@ -5,41 +5,58 @@ module.exports = class AssetManager extends Module {
     constructor (name, game) {
         super(name, game);
 
+        this.stream = new Set();
+
         this.audios = new Map();
         this.images = new Map();
         this.unknown = new Map();
         this.videos = new Map();
     }
 
-    connect (game) {
-        game.subscribe('download', 'start').forEach(method => this.download(method.arguments[ 0 ]));
-        game.subscribe('download', 'complete').forEach(method => this.manage(method.arguments[ 0 ]));
-    }
-
     download (filename) {
-        new AssetManager.Download(filename, this.game).start();
+        const fetch = this.game.connection.fetch.bind(this.game.connection);
+        const download = new AssetManager.Download(filename, this);
+
+        this.stream.add(download);
+
+        return new Promise((resolve, reject) => {
+            download.start(fetch).then(asset => {
+                resolve(asset);
+            })
+            .catch(error => {
+                reject(error);
+            });
+        });
     }
 
     manage (download) {
         const { binary, filename, type } = download;
 
+        this.stream.delete(download);
+
         switch (type) {
             case 'image': {
                 const image = new Image();
+                image.onload = () => this.emit('complete', [ download ])
                 image.src = URL.createObjectURL(binary);
                 this.images.set(filename, image);
-                break;
+
+                return image;
             }
             case 'audio': {
                 const audio = new Audio(URL.createObjectURL(binary));
+                audio.onload = () => this.emit('complete', [ download ]);
                 this.audios.set(filename, audio);
-                break;
+
+                return audio;
             }
             case 'video': {
                 const video = document.createElement('video');
+                video.onload = () => this.emit('complete', [ download ]);
                 video.src = Url.createObjectURL(binary);
                 this.videos.set(filename, video);
-                break;
+
+                return video;
             }
             default: {
                 this.unknown.set(filename, binary);
@@ -60,10 +77,8 @@ module.exports.Download = class AssetManagerDownload {
         this.type = 'unknown';
     }
 
-    start () {
-        const address = `${ this.manager.settings.get('server.address') }/assets/${ this.filename }`;
-
-        fetch(address).then(response => {
+    start (fetch) {
+        return fetch(`assets/${ this.filename }`).then(response => {
             const contentLength = response.headers.get('content-length');
             const contentType = response.headers.get('content-type');
             const reader = response.body.getReader();
@@ -80,7 +95,7 @@ module.exports.Download = class AssetManagerDownload {
             this.binary = binary;
             this.loaded = this.size;
 
-            this.manager.emit('download', 'complete', [ this ]);
+            return this.manager.manage(this);
         });
     }
 
@@ -93,11 +108,9 @@ module.exports.Download = class AssetManagerDownload {
 
             this.loaded += stream.value.byteLength;
 
+            this.manager.emit('progress', [ this ]);
             controller.enqueue(stream.value);
-
-            this.manager.emit('download', 'progress', [ this ]).default(() => {
-                this.read(reader, controller);
-            });
+            this.read(reader, controller);
         });
     }
 }

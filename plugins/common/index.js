@@ -74,44 +74,27 @@ module.exports = new Plugin('common', game => {
     game.devices.install(keyboard);
     game.devices.install(mouse);
 
-    game.loop.subscribe('update').forEach(() => {
-
-    });
-
-    game.loop.subscribe('draw').forEach(() => {
-
-    });
-
     game.renderer.subscribe('attach').forEach(() => {
         game.renderer.bind('default', [ fragment, vertex ]);
     });
 
     game.connection.subscribe('handshake').forEach(() => {
-        game.connection.send({ name: 'authenticate', details: [ 'admin', '1234' ] });
+        game.tasks.create('authenticate', [ 'admin', '1234' ]);
     });
 
     game.tasks.subscribe('authorize').forEach(() => {
-        game.connection.fetch('assets/ascii.txt').then(response => response.text()).then(text => {
-            console.log(text);
+        game.assets.download('danksnack.png').then(asset => {
+            container.style.background = `url(${ asset.src })`;
         });
-    })
+    });
 
     game.loop.start();
     game.viewport.mount(container);
     game.viewport.resize({ width: 1024, height: 576 });
 
-    // game.tasks.subscribe('ping').forEach(method => {
-    //     const [ details ] = method.arguments;
-    //     console.log(`[ task: ping ] [ ${ Date.now() } ] ${ details }`);
-    //     game.connection.send([ { "name": "ping", "details": { } } ]);
-    //
-    //     // game.connection.send([ { name: 'createAccount', details: [ 'admin', '1234' ] } ]);
-    //
-    // });
-
     render(game);
 
-    console.log(game);
+    global.game = game;
 });
 
 /*const Plugin = require('../core/Plugin');

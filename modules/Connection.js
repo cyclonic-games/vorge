@@ -31,10 +31,8 @@ module.exports = class Connection extends Module {
         this.socket.close();
     }
 
-    send (task) {
-        const { id: origin } = this;
-
-        this.socket.send(JSON.stringify({ origin, task }));
+    send (message) {
+        this.socket.send(JSON.stringify(message));
     }
 
     fetch (path, options = { }) {
