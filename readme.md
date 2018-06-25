@@ -26,7 +26,7 @@ npm install cyclonic-games/vorge --save #requires git to be installed
 Once you've installed vorge, simply import it into your working script, like so:
 
 ```javascript
-import Game from 'vorge/core/Game';
+const Game = require('vorge/core/Game');
 ```
 
 Once you have it imported, you're ready to get making your game!
