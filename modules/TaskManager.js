@@ -10,7 +10,7 @@ module.exports = class TaskManager extends Module {
         const { origin, task } = message;
 
         if (task) {
-            this.emit(task.name, [ origin, task ]);
+            this.emit(task.name, [ origin, task.details ]);
         }
     }
 
