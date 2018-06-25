@@ -83,9 +83,7 @@ module.exports = new Plugin('common', game => {
     });
 
     game.tasks.subscribe('authorize').forEach(() => {
-        game.assets.download('danksnack.png').then(asset => {
-            container.style.background = `url(${ asset.src })`;
-        });
+        game.tasks.create('handshake', [ game.connection.id ]);
     });
 
     game.loop.start();
