@@ -94,8 +94,8 @@ module.exports = new Plugin('common', game => {
                         y: 100
                     },
                     size: {
-                        width: 32,
-                        height: 32
+                        width: 64,
+                        height: 64
                     },
                     texture: {
                         data: asset
@@ -115,19 +115,3 @@ module.exports = new Plugin('common', game => {
 
     global.game = game;
 });
-
-/*const Plugin = require('../core/Plugin');
-
-module.exports = new Plugin('foo', game => {
-    const std = game.libraries.use('std');
-
-    const player = std.entities.player.create({
-        position: {
-            x: 0,
-            y: 0,
-            z: 0
-        }
-    });
-
-    std.systems.render.run(player);
-});*/
