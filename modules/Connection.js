@@ -13,7 +13,7 @@ module.exports = class Connection extends Module {
     connect (game) {
         game.subscribe('play').forEach(method => this.establish(...method.arguments));
         game.subscribe('quit').forEach(method => this.disconnect(...method.arguments));
-        game.tasks.subscribe('handshake').forEach(method => this.handshake(...method.arguments));
+        game.tasks.subscribe('handshake').forEach(method => this.ready(...method.arguments));
     }
 
     establish (host) {
@@ -23,7 +23,7 @@ module.exports = class Connection extends Module {
         this.socket.onerror = error => this.disconnect(error);
     }
 
-    handshake (id) {
+    ready (id) {
         this.id = id;
     }
 
