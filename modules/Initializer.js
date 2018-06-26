@@ -15,24 +15,25 @@ module.exports = class Initializer extends Module {
     }
 
     connect (game) {
-        game.tasks.subscribe('initialize').forEach(method => this.initialize(method.arguments[ 0 ]));
+        game.tasks.subscribe('initialize').forEach(method => this.initialize(...method.arguments));
         game.tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
     }
 
-    initialize (blueprints) {
-        for (const plan of blueprints) switch (plan.kind) {
+    initialize (origin, object) {
+        switch (object.type) {
             case 'entity': {
-                return this.spawn(plan.details);
+                return this.spawn(object.spec);
             }
             case 'script': {
-                return this.compile(plan.details);
+                return this.compile(object.spec);
             }
         }
     }
 
     compile (script) {
         const args = [
-            this.game.constructor.name.toLowerCase(),
+            'target',
+            'game',
             Component.name,
             Entity.name,
             System.name
@@ -42,19 +43,19 @@ module.exports = class Initializer extends Module {
     }
 
     spawn (entity) {
-        const kind = Array.from(Entitiy.__instances__).find(x => x.kind === entity.kind);
+        const kind = Array.from(Entity.__instances__).find(x => x.kind === entity.kind);
         const spawned = kind.create(entity.components);
 
-        this.heap.entities.set(entitiy.id, spawned);
+        this.heap.entities.set(entity.id, spawned);
 
         if (entity.script) {
             this.heap.scripts.get(entity.script).call(spawned, this.game, Component, Entity, System);
         }
     }
 
-    run (id, name) {
-        const target = this.heap.entities.get(id);
+    run (origin, script) {
+        const target = this.heap.entities.get(script.target);
 
-        this.heap.scripts.get(name).call(target, this.game, Component, Entity, System);
+        this.heap.scripts.get(script.name)(target, this.game, Component, Entity, System);
     }
 }
