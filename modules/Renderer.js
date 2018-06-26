@@ -63,42 +63,11 @@ module.exports = class Renderer extends Module {
         this.webgl.clear();
     }
 
-    draw (object) {
-        switch (this.dimensions) {
-            case 2: {
-                const { size, position, texture } = object;
-
-                this.webgl.uniform('vorge_Texture', texture || blank);
-
-                this.webgl.input('vorge_Sample', new Float32Array([
-                    0, 0,
-                    1, 0,
-                    0, 1,
-                    0, 1,
-                    1, 0,
-                    1, 1
-                ]));
-
-                this.webgl.input('vorge_Position', new Float32Array([
-                    position.x, position.y,
-                    position.x + size.width, position.y,
-                    position.x, position.y + size.height,
-                    position.x, position.y + size.height,
-                    position.x + size.width, position.y,
-                    position.x + size.width, position.y + size.height
-                ]));
-
-                this.webgl.draw(6);
-
-                break;
-            }
-            case 3: {
-                break;
-            }
-        }
+    draw (n) {
+        this.webgl.draw(n);
     }
 
     paint () {
-
+        // TODO paint in-memory canvas to viewport-canvas -- performance?
     }
 };

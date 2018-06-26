@@ -1,6 +1,7 @@
 const Library = require('../../core/Library');
 
 const position = require('./components/position');
+const size = require('./components/size');
 const texture = require('./components/texture');
 
 const player = require('./entities/player');

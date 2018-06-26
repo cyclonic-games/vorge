@@ -30,7 +30,7 @@ const blackContext = black.getContext('2d');
 blackContext.fillStyle = '#0000FF';
 blackContext.fillRect(0, 0, 32, 32);
 
-function render (game) {
+function render (game, asset) {
     //requestAnimationFrame(() => render(game));
 
     game.renderer.clear();
@@ -53,7 +53,7 @@ function render (game) {
     }
 
     game.renderer.draw({
-        texture: black,
+        texture: asset,
         size: {
             height: 32,
             width: 32
@@ -66,6 +66,8 @@ function render (game) {
 }
 
 module.exports = new Plugin('common', game => {
+    const std = game.libraries.use('std');
+
     const gamepad = new Gamepad('gamepad');
     const keyboard = new Keyboard('keyboard');
     const mouse = new Mouse('mouse');
@@ -84,13 +86,32 @@ module.exports = new Plugin('common', game => {
 
     game.tasks.subscribe('authorize').forEach(() => {
         game.tasks.create('handshake', game.connection.id);
-    });
+        game.assets.download('shrek.gif').then(asset => {
+            asset.onload = () => {
+                const player = std.entities.player.create({
+                    position: {
+                        x: 100,
+                        y: 100
+                    },
+                    size: {
+                        width: 32,
+                        height: 32
+                    },
+                    texture: {
+                        data: asset
+                    }
+                });
 
-    game.loop.start();
+                game.loop.subscribe('draw').forEach(() => {
+                    std.systems.render2d.run(player, game);
+                });
+
+                game.loop.start();
+            }
+        });
+    });
     game.viewport.mount(container);
     game.viewport.resize({ width: 1024, height: 576 });
-
-    render(game);
 
     global.game = game;
 });
