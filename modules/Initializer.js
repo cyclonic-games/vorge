@@ -19,7 +19,7 @@ module.exports = class Initializer extends Module {
         game.tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
     }
 
-    initialize (origin, object) {
+    initialize (object) {
         switch (object.type) {
             case 'entity': {
                 return this.spawn(object.spec);
@@ -53,7 +53,7 @@ module.exports = class Initializer extends Module {
         }
     }
 
-    run (origin, script) {
+    run (script) {
         const target = this.heap.entities.get(script.target);
 
         this.heap.scripts.get(script.name)(target, this.game, Component, Entity, System);

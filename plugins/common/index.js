@@ -83,7 +83,7 @@ module.exports = new Plugin('common', game => {
     });
 
     game.tasks.subscribe('authorize').forEach(() => {
-        game.tasks.create('handshake', [ game.connection.id ]);
+        game.tasks.create('handshake', game.connection.id);
     });
 
     game.loop.start();

@@ -15,7 +15,7 @@ module.exports = class LibraryManager extends Module {
 
     enable (lib) {
         if (lib instanceof Library) {
-            this.collection.set(lib.kind, lib.catalogue(this.game));
+            this.collection.set(lib.kind, lib);
         }
         else {
             throw new TypeError('Invalid Library');

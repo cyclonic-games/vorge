@@ -19,12 +19,4 @@ module.exports = class Library {
             this.systems[ system.kind ] = system;
         }
     }
-
-    catalogue (game) {
-        for (const system of Object.values(this.systems)) {
-            system.bind(game);
-        }
-
-        return this;
-    }
 };
