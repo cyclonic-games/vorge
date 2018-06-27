@@ -9,6 +9,14 @@ module.exports = class Keyboard extends Event.Emitter {
         this.modifiers = { };
     }
 
+    key (key) {
+        return this.keys[ key.toLowerCase() ];
+    }
+
+    modifier (modifier) {
+        return this.modifiers[ modifier.toLowerCase() ];
+    }
+
     connect () {
         window.addEventListener('keydown', event => this.down(event));
         window.addEventListener('keyup', event => this.up(event));
@@ -17,13 +25,13 @@ module.exports = class Keyboard extends Event.Emitter {
     down (event) {
         const { keys, modifiers } = this;
         const { key, altKey, ctrlKey, metaKey, shiftKey } = event;
-        const normalized = key.length === 1 ? key.toUpperCase() : key;
+        const normalized = key.toLowerCase().trim() || 'space';
 
-        if (keys[ normalized.trim() || 'Space' ]) {
+        if (keys[ normalized ]) {
             return;
         }
 
-        keys[ normalized.trim() || 'Space' ] = true;
+        keys[ normalized ] = true;
         modifiers.alt = altKey;
         modifiers.ctrl = ctrlKey;
         modifiers.meta = metaKey;
@@ -35,13 +43,13 @@ module.exports = class Keyboard extends Event.Emitter {
     up (event) {
         const { keys, modifiers } = this;
         const { key, altKey, ctrlKey, metaKey, shiftKey } = event;
-        const normalized = key.length === 1 ? key.toUpperCase() : key;
+        const normalized = key.toLowerCase().trim() || 'space';
 
-        if (!keys[ normalized.trim() || 'Space' ]) {
+        if (!keys[ normalized ]) {
             return;
         }
 
-        keys[ normalized.trim() || 'Space' ] = false;
+        keys[ normalized ] = false;
         modifiers.alt = altKey;
         modifiers.ctrl = ctrlKey;
         modifiers.meta = metaKey;

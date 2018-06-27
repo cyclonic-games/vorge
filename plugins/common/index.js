@@ -14,17 +14,19 @@ const keyboard = new Keyboard('keyboard');
 const mouse = new Mouse('mouse');
 
 module.exports = new Plugin('common', game => {
-    const std = game.libraries.use('std');
-
     game.devices.install(gamepad);
     game.devices.install(keyboard);
     game.devices.install(mouse);
+
+    game.loop.subscribe('update').filter(() => keyboard.key('h')).forEach(() => {
+        console.log('h key is down');
+    });
 
     game.renderer.subscribe('attach').forEach(() => {
         game.renderer.bind('default', [ fragment, vertex ]);
     });
 
-    game.connection.subscribe('ready').forEach(() => {
+    game.tasks.subscribe('handshake').forEach(() => {
         game.tasks.create('authenticate', [ 'admin', '1234' ]);
     });
 
@@ -32,7 +34,9 @@ module.exports = new Plugin('common', game => {
         game.tasks.create('provision', game.connection.id);
     });
 
-    game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
+    game.tasks.subscribe('spawn').forEach(method => {
+        spawn.apply(game, method.arguments);
+    });
 
     game.viewport.mount(document.getElementById('vorge'));
     game.viewport.resize({ width: 1024, height: 576 });
