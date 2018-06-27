@@ -21,7 +21,7 @@ The tagline says it all, if not too much. Vorge is built to be focused around EC
 Before I list them out, it's important to understand how Vorge works. The basic idea is to create a high-throughput application scaffolding that allows for several ways of customization. Vorge ships with some basic, common functionality in the shape of **Modules**, **Libraries**, and **Plugins**, but Vorge itself is just designed to handle data flow and communication between moving parts (including client <-> server).
 
 ##### **Modules**
-Vorge modules are essentially core blocks of logic that make up the majority of the internal logic of the engine. Modules allow you to replace existing modules or create entirely new ones that add unique functionality.
+Vorge modules are essentially core blocks of logic that make up the majority of the internal logic of the engine. You can replace existing modules or create entirely new ones that add unique functionality.
 
 ##### **Libraries**
 With an Entity/Component/System architecture, managing all of these objects can become difficult. Libraries in Vorge consist of prebuilt entities, components, and systems that you can reference in your modules, other libraries, or plugins.
