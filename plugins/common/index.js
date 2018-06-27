@@ -7,6 +7,8 @@ const Mouse = require('./devices/Mouse');
 const fragment = require('./shaders/default/fragment');
 const vertex = require('./shaders/default/vertex');
 
+const authorize = require('./tasks/authorize');
+const handshake = require('./tasks/handshake');
 const spawn = require('./tasks/spawn');
 
 const gamepad = new Gamepad('gamepad');
@@ -18,30 +20,12 @@ module.exports = new Plugin('common', game => {
     game.devices.install(keyboard);
     game.devices.install(mouse);
 
-    game.loop.subscribe('update').filter(() => keyboard.key('h')).forEach(() => {
-        console.log('h key is down');
-    });
-
-    game.renderer.subscribe('attach').forEach(() => {
-        game.renderer.bind('default', [ fragment, vertex ]);
-    });
-
-    game.tasks.subscribe('handshake').forEach(() => {
-        game.tasks.create('authenticate', [ 'admin', '1234' ]);
-    });
-
-    game.tasks.subscribe('authorize').forEach(() => {
-        game.tasks.create('provision', game.connection.id);
-    });
-
-    game.tasks.subscribe('spawn').forEach(method => {
-        spawn.apply(game, method.arguments);
-    });
+    game.tasks.subscribe('handshake').forEach(method => handshake.apply(game, method.arguments));
+    game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
+    game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
 
     game.viewport.mount(document.getElementById('vorge'));
     game.viewport.resize({ width: 1024, height: 576 });
-
+    game.renderer.bind('default', [ fragment, vertex ]);
     game.loop.start();
-
-    console.log(game);
 });
