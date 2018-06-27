@@ -11,14 +11,10 @@ const authorize = require('./tasks/authorize');
 const handshake = require('./tasks/handshake');
 const spawn = require('./tasks/spawn');
 
-const gamepad = new Gamepad('gamepad');
-const keyboard = new Keyboard('keyboard');
-const mouse = new Mouse('mouse');
-
 module.exports = new Plugin('common', game => {
-    game.devices.install(gamepad);
-    game.devices.install(keyboard);
-    game.devices.install(mouse);
+    game.devices.install(new Gamepad('gamepad'));
+    game.devices.install(new Keyboard('keyboard'));
+    game.devices.install(new Mouse('mouse'));
 
     game.tasks.subscribe('handshake').forEach(method => handshake.apply(game, method.arguments));
     game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
