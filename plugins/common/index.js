@@ -7,6 +7,8 @@ const Mouse = require('./devices/Mouse');
 const fragment = require('./shaders/default/fragment');
 const vertex = require('./shaders/default/vertex');
 
+const spawn = require('./tasks/spawn');
+
 const gamepad = new Gamepad('gamepad');
 const keyboard = new Keyboard('keyboard');
 const mouse = new Mouse('mouse');
@@ -28,31 +30,14 @@ module.exports = new Plugin('common', game => {
 
     game.tasks.subscribe('authorize').forEach(() => {
         game.tasks.create('provision', game.connection.id);
-        game.assets.download('shrek.gif').then(asset => {
-            asset.onload = () => {
-                const player = std.entities.player.create({
-                    position: {
-                        x: 100,
-                        y: 100
-                    },
-                    size: {
-                        width: 64,
-                        height: 64
-                    },
-                    texture: {
-                        data: asset
-                    }
-                });
-
-                game.loop.subscribe('draw').forEach(() => {
-                    std.systems.render2d.run(player, game);
-                });
-            }
-        });
     });
+
+    game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
 
     game.viewport.mount(document.getElementById('vorge'));
     game.viewport.resize({ width: 1024, height: 576 });
 
     game.loop.start();
+
+    console.log(game);
 });
