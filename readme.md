@@ -61,6 +61,9 @@ The basic functionality that vorge ships with is enough to get a simple online R
 Yes, it will! I want to bake the engine and server out, work on the git-based package management, then jump right into developing the editors/creation suite. It will also be JavaScript and probably run on Electron.
 
 ##### **Future Planned Features**
+- Extensions (Make your own tools!)
+- Tile Map Editor
+- UI Designer
 - TBD
 
 ---
