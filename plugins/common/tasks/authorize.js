@@ -1,3 +1,3 @@
 module.exports = function authorize () {
-    game.tasks.create('provision', this.connection.id);
+    this.tasks.create('provision', this.connection.id);
 };

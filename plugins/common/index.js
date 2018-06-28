@@ -20,9 +20,9 @@ module.exports = new Plugin('common', game => {
     game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
     game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
 
-    game.viewport.mount(document.getElementById('vorge'), [ 1024, 576 );
-    
+    game.viewport.mount(document.getElementById('vorge'));
+
     game.renderer.bind('default', [ fragment, vertex ]);
-    
+
     game.loop.start();
 });

@@ -20,18 +20,8 @@ module.exports = class Renderer extends Module {
     }
 
     connect (game) {
-        game.subscribe('entity', 'draw').forEach(method => this.draw(method.arguments[ 0 ]));
-        game.loop.subscribe('draw').forEach(method => this.paint(method.arguments[ 0 ]));
-        game.viewport.subscribe('mount').forEach(method => this.attach(method.arguments[ 0 ]));
-        game.viewport.subscribe('resize').forEach(method => this.adjust(method.arguments[ 0 ]));
-    }
-
-    adjust () {
-        this.webgl.viewport(0, 0, this.game.viewport.canvas.width, this.game.viewport.canvas.height);
-        this.webgl.uniform('vorge_Resolution', new Float32Array([
-            this.game.viewport.canvas.width,
-            this.game.viewport.canvas.height
-        ]));
+        game.viewport.subscribe('mount').forEach(method => this.attach(...method.arguments));
+        game.viewport.subscribe('resize').forEach(method => this.adjust(...method.arguments));
     }
 
     attach () {
@@ -45,6 +35,15 @@ module.exports = class Renderer extends Module {
         }
 
         this.webgl.initialize(name, ...shaders);
+
+        this.adjust();
+    }
+
+    adjust () {
+        const { width, height } = this.game.viewport.canvas;
+
+        this.webgl.viewport(0, 0, width, height);
+        this.webgl.uniform('vorge_Resolution', new Float32Array([ width, height ]));
     }
 
     input (name, value) {

@@ -7,10 +7,13 @@ module.exports = class Viewport extends Module {
 
         this.canvas = document.createElement('canvas');
         this.canvas.style.display = 'block';
-        this.ratio = 1;
+        this.ratio = window.devicePixelRatio;
     }
 
     mount (container) {
+        this.canvas.width = container.offsetWidth;
+        this.canvas.height = container.offsetHeight;
+
         container.appendChild(this.canvas);
     }
 
