@@ -13,6 +13,7 @@ const render2d = require('./systems/render2d');
 
 module.exports = new Library('std', {
     components: [
+        id,
         position,
         size,
         texture,
