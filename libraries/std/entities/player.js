@@ -7,6 +7,7 @@ const name = require('../components/name');
 const position = require('../components/position');
 const size = require('../components/size');
 const texture = require('../components/texture');
+const velocity = require('../components/velocity');
 
 module.exports = new Entity('player', [
     experience,
@@ -15,5 +16,6 @@ module.exports = new Entity('player', [
     name,
     position,
     size,
-    texture
+    texture,
+    velocity
 ]);
