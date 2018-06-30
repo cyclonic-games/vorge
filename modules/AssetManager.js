@@ -14,6 +14,14 @@ module.exports = class AssetManager extends Module {
     }
 
     download (filename) {
+
+        if (this.cache.has(filename)) switch (this.cache.get(filename)) {
+            case 'image': return Promise.resolve(this.images.get(filename));
+            case 'audio': return Promise.resolve(this.audios.get(filename));
+            case 'video': return Promise.resolve(this.videos.get(filename));
+            default: return Promise.resolve(this.unknown.get(filename));
+        }
+
         const fetch = this.game.connection.fetch.bind(this.game.connection);
         const download = new AssetManager.Download(filename, this);
 
@@ -32,6 +40,7 @@ module.exports = class AssetManager extends Module {
     manage (download) {
         const { binary, filename, type } = download;
 
+        this.cache.set(filename, type);
         this.stream.delete(download);
 
         switch (type) {

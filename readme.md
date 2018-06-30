@@ -52,7 +52,9 @@ The basic functionality that vorge ships with is enough to get a simple online R
 - Electron (run your game as a desktop app)
 - Offline (make a single player game)
 - Discord (integrate with discord and its api)
+- Multiple DB support (right now only postgres)
 - Web-based administration panel for the server
+- Google Cloud integration
 - TBD
 
 ---
@@ -63,7 +65,10 @@ Yes, it will! I want to bake the engine and server out, work on the git-based pa
 ##### **Future Planned Features**
 - Extensions (Make your own tools!)
 - Tile Map Editor
+- Quest Editor
+- Item Editor
 - UI Designer
+- Deployment Manager (CI/CD)
 - TBD
 
 ---
