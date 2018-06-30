@@ -51,11 +51,16 @@ module.exports = class Initializer extends Module {
         if (entity.script) {
             this.heap.scripts.get(entity.script)(spawned, this.game, Component, Entity, System);
         }
+
+        return spawned;
     }
 
     run (script) {
         const target = this.heap.entities.get(script.target);
+        const fn = this.heap.scripts.get(script.name);
 
-        this.heap.scripts.get(script.name)(target, this.game, Component, Entity, System);
+        fn(target, this.game, Component, Entity, System);
+
+        return fn;
     }
 }
