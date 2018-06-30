@@ -44,8 +44,8 @@ These are simple; want to run some code when the game is instantiated. This allo
 
 ---
 
-#### **But does it have pets system?**
-The basic functionality that vorge ships with is enough to get a simple online RPG up and running. I will be working on my own game while I polish up the engine, and all of the modules, libraries, and plugins that I develop for my game I will release as open source for you to use in your games. This means that yes, if someone writes you the plugin, Vorge can support a pets system, and so much more.
+#### **But does it have [ feature ]?**
+The basic functionality that vorge ships with is enough to get a simple online RPG up and running. I will be working on my own game while I polish up the engine, and all of the modules, libraries, and plugins that I develop for my game I will release as open source for you to use in your games. This means that yes, if someone writes you the plugin, Vorge can support [ feature ], and so much more.
 
 ##### **Future Planned Features**
 - Particles (render beautiful particles)
