@@ -6,6 +6,7 @@ module.exports = class Loop extends Module {
         super(name, game);
 
         this.running = false;
+        this.time = Date.now();
     }
 
     start () {
@@ -20,7 +21,10 @@ module.exports = class Loop extends Module {
     }
 
     update (frame = 0) {
-        if (this.running) setTimeout(() => this.update(++frame % 60), 1000 / 60);
+        if (this.running) setTimeout(() => {
+            this.update(++frame % 60);
+            this.time = Date.now();
+        }, 1000 / 60);
     }
 
     draw (frame = 0) {

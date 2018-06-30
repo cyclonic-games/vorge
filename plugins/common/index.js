@@ -13,6 +13,8 @@ const handshake = require('./tasks/handshake');
 const spawn = require('./tasks/spawn');
 
 module.exports = new Plugin('common', game => {
+    const std = game.libraries.use('std');
+
     game.devices.install(new Gamepad('gamepad'));
     game.devices.install(new Keyboard('keyboard'));
     game.devices.install(new Mouse('mouse'));
@@ -25,4 +27,22 @@ module.exports = new Plugin('common', game => {
     game.viewport.subscribe('mount').forEach(() => {
         game.renderer.bind('default', [ fragment, vertex ]);
     });
+
+    game.loop.subscribe('update').forEach(() => {
+        std.systems.move.run(game.world.player, game);
+
+        for (const [ entity ] of game.world.entities) {
+            std.systems.move.run(entity, game);
+        }
+    });
+
+    game.loop.subscribe('draw').forEach(() => {
+        std.systems.render2d.run(game.world.player, game);
+
+        for (const [ entity ] of game.world.entities) {
+            std.systems.render2d.run(entity, game);
+        }
+    });
+
+    Object.assign(window, { game });
 });

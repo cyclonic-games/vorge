@@ -5,12 +5,14 @@ module.exports = class AssetManager extends Module {
     constructor (name, game) {
         super(name, game);
 
-        this.stream = new Set();
+        this.cache = new Map();
+        this.queue = new Set();
 
         this.audios = new Map();
         this.images = new Map();
-        this.unknown = new Map();
         this.videos = new Map();
+
+        this.unknown = new Map();
     }
 
     download (filename) {
@@ -22,10 +24,14 @@ module.exports = class AssetManager extends Module {
             default: return Promise.resolve(this.unknown.get(filename));
         }
 
+        for (const download of this.queue) if (download.filename === filename) {
+            return download.request;
+        }
+
         const fetch = this.game.connection.fetch.bind(this.game.connection);
         const download = new AssetManager.Download(filename, this);
 
-        this.stream.add(download);
+        this.queue.add(download);
 
         return new Promise((resolve, reject) => {
             download.start(fetch).then(asset => {
@@ -41,36 +47,37 @@ module.exports = class AssetManager extends Module {
         const { binary, filename, type } = download;
 
         this.cache.set(filename, type);
-        this.stream.delete(download);
+        this.queue.delete(download);
 
-        switch (type) {
-            case 'image': {
-                const image = new Image();
-                image.onload = () => this.emit('complete', [ download ])
-                image.src = URL.createObjectURL(binary);
-                this.images.set(filename, image);
+        return new Promise(resolve => {
+            switch (type) {
+                case 'image': {
+                    const image = new Image();
+                    image.onload = () => resolve(image);
+                    image.src = URL.createObjectURL(binary);
+                    this.images.set(filename, image);
+                }
+                case 'audio': {
+                    const audio = new Audio(URL.createObjectURL(binary));
+                    audio.oncanplay = () => resolve(audio);
+                    this.audios.set(filename, audio);
 
-                return image;
-            }
-            case 'audio': {
-                const audio = new Audio(URL.createObjectURL(binary));
-                audio.onload = () => this.emit('complete', [ download ]);
-                this.audios.set(filename, audio);
+                    return audio;
+                }
+                case 'video': {
+                    const video = document.createElement('video');
+                    video.oncanplay = () => resolve(video);
+                    video.src = Url.createObjectURL(binary);
+                    this.videos.set(filename, video);
 
-                return audio;
+                    return video;
+                }
+                default: {
+                    this.unknown.set(filename, binary);
+                    resolve(binary);
+                }
             }
-            case 'video': {
-                const video = document.createElement('video');
-                video.onload = () => this.emit('complete', [ download ]);
-                video.src = Url.createObjectURL(binary);
-                this.videos.set(filename, video);
-
-                return video;
-            }
-            default: {
-                this.unknown.set(filename, binary);
-            }
-        }
+        });
     }
 }
 
@@ -82,12 +89,13 @@ module.exports.Download = class AssetManagerDownload {
         this.kind = 'download';
         this.manager = manager;
         this.loaded = 0;
+        this.request = null;
         this.size = 0;
         this.type = 'unknown';
     }
 
     start (fetch) {
-        return fetch(`assets/${ this.filename }`).then(response => {
+        return this.request = fetch(`assets/${ this.filename }`).then(response => {
             const contentLength = response.headers.get('content-length');
             const contentType = response.headers.get('content-type');
             const reader = response.body.getReader();

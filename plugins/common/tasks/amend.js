@@ -1,7 +1,8 @@
 module.exports = function amend (meta) {
     const std = this.libraries.use('std');
-    const { velocity } = std.components;
     const entity = this.initializer.heap.entities.get(meta.id);
 
-    Object.assign(velocity.of(entity), meta.components.velocity);
+    for (const [ key, value ] of  Object.entries(meta.components)) {
+        Object.assign(std.components[ key ].of(entity), value);
+    }
 }

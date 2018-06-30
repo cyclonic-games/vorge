@@ -1,27 +1,33 @@
 const Module = require('../core/Module');
 
-const state = new Map();
-
 module.exports = class World extends Module {
 
     get player () {
-        return state.get('player');
+        return this.state.get('player');
     }
 
     get entities () {
-        return state.get('entities');
+        return this.state.get('entities');
     }
 
     get chunks () {
-        return state.get('chunks');
+        return this.state.get('chunks');
     }
 
     set chunks (chunks) {
-        return state.set('chunks', chunks);
+        return this.state.set('chunks', chunks);
+    }
+
+    constructor (kind, game) {
+        super(kind, game);
+
+        this.state = new Map([
+            [ 'player', null ],
+            [ 'entities', new Map() ]
+        ]);
     }
 
     connect (game) {
-        game.subscribe('entity', 'join').forEach(method => this.greet(method.arguments[ 0 ]));
         game.subscribe('entity', 'update').forEach(method => this.amend(method.arguments[ 0 ]));
         game.subscribe('entity', 'leave').forEach(method => this.forget(method.arguments[ 0 ]));
         game.player.subscribe('live').forEach(method => this.begin(method.arguments[ 0 ]));
@@ -29,8 +35,8 @@ module.exports = class World extends Module {
         game.player.subscribe('travel').forEach(method => this.navigate(method.arguments[ 0 ]));
     }
 
-    begin (parameters) {
-
+    begin (entity) {
+        this.state.set('player', entity);
     }
 
     end (statistics) {
@@ -81,8 +87,8 @@ module.exports = class World extends Module {
         }
     }
 
-    greet (entities) {
-
+    greet (entity, origin) {
+        this.state.get('entities').set(entity, origin);
     }
 
     amend (entities) {
