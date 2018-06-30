@@ -4,7 +4,7 @@ module.exports = function spawn (serial, origin) {
         const std = this.libraries.use('std');
         const { id, position, texture, velocity } = std.components;
         const { render2d, move } = std.systems;
-        const entity = this.initializer.heap.entities.get(serial);
+        const entity = this.initializer.heap.entities.get(origin);
 
         texture.of(entity).data = asset;
 
@@ -18,7 +18,7 @@ module.exports = function spawn (serial, origin) {
             if (keyboard.key('s')) velocity.of(entity).y = 1;
             if (keyboard.key('a')) velocity.of(entity).x = -1;
 
-            this.tasks.create('amend', { id: serial, components: {
+            this.tasks.create('amend', { id: origin, components: {
                 position: position.of(entity),
                 velocity: velocity.of(entity)
             } });
@@ -28,7 +28,7 @@ module.exports = function spawn (serial, origin) {
             if (!keyboard.key('w') && !keyboard.key('s')) velocity.of(entity).y = 0;
             if (!keyboard.key('d') && !keyboard.key('a')) velocity.of(entity).x = 0;
 
-            this.tasks.create('amend', { id: serial, components: {
+            this.tasks.create('amend', { id: origin, components: {
                 position: position.of(entity),
                 velocity: velocity.of(entity)
             } });
