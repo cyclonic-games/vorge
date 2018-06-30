@@ -31,7 +31,7 @@ module.exports = new Plugin('common', game => {
     game.loop.subscribe('update').forEach(() => {
         std.systems.move.run(game.world.player, game);
 
-        for (const [ entity ] of game.world.entities) {
+        for (const [ , entity ] of game.world.entities) {
             std.systems.move.run(entity, game);
         }
     });
@@ -39,7 +39,7 @@ module.exports = new Plugin('common', game => {
     game.loop.subscribe('draw').forEach(() => {
         std.systems.render2d.run(game.world.player, game);
 
-        for (const [ entity ] of game.world.entities) {
+        for (const [ , entity ] of game.world.entities) {
             std.systems.render2d.run(entity, game);
         }
     });

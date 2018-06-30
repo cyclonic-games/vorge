@@ -8,7 +8,7 @@ module.exports = function spawn (serial, origin) {
 
         texture.of(entity).data = asset;
 
-        if (id.of(entity).valueOf() !== this.connection.id) {
+        if (origin !== this.connection.id) {
             return this.world.greet(entity, id.of(entity).valueOf());
         }
 

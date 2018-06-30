@@ -19,10 +19,10 @@ module.exports = class Initializer extends Module {
         game.tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
     }
 
-    initialize (object) {
+    initialize (object, ...args) {
         switch (object.type) {
             case 'entity': {
-                return this.spawn(object.spec);
+                return this.spawn(object.spec, ...args);
             }
             case 'script': {
                 return this.compile(object.spec);
@@ -42,11 +42,11 @@ module.exports = class Initializer extends Module {
         this.heap.scripts.set(script.name, new Function(...args, script.code));
     }
 
-    spawn (entity) {
+    spawn (entity, origin) {
         const kind = Array.from(Entity.__instances__).find(x => x.kind === entity.kind);
         const spawned = kind.create(entity.components);
 
-        this.heap.entities.set(entity.id, spawned);
+        this.heap.entities.set(origin, spawned);
 
         if (entity.script) {
             this.heap.scripts.get(entity.script)(spawned, this.game, Component, Entity, System);
