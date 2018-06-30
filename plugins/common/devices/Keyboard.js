@@ -9,17 +9,17 @@ module.exports = class Keyboard extends Event.Emitter {
         this.modifiers = { };
     }
 
+    connect () {
+        window.addEventListener('keydown', event => this.down(event));
+        window.addEventListener('keyup', event => this.up(event));
+    }
+
     key (key) {
         return this.keys[ key.toLowerCase() ];
     }
 
     modifier (modifier) {
         return this.modifiers[ modifier.toLowerCase() ];
-    }
-
-    connect () {
-        window.addEventListener('keydown', event => this.down(event));
-        window.addEventListener('keyup', event => this.up(event));
     }
 
     down (event) {

@@ -7,6 +7,7 @@ const Mouse = require('./devices/Mouse');
 const fragment = require('./shaders/default/fragment');
 const vertex = require('./shaders/default/vertex');
 
+const amend = require('./tasks/amend');
 const authorize = require('./tasks/authorize');
 const handshake = require('./tasks/handshake');
 const spawn = require('./tasks/spawn');
@@ -19,6 +20,7 @@ module.exports = new Plugin('common', game => {
     game.tasks.subscribe('handshake').forEach(method => handshake.apply(game, method.arguments));
     game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
     game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
+    game.tasks.subscribe('amend').forEach(method => amend.apply(game, method.arguments));
 
     game.viewport.subscribe('mount').forEach(() => {
         game.renderer.bind('default', [ fragment, vertex ]);
