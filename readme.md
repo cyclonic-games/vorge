@@ -66,7 +66,8 @@ Yes, it will! I want to bake the engine and server out, work on the git-based pa
 - Extensions (Make your own tools!)
 - Tile Map Editor
 - Quest Editor
-- Item Editor
+- Entity Editor
+- Script Editor
 - UI Designer
 - Deployment Manager (CI/CD)
 - TBD
