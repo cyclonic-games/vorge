@@ -42,11 +42,11 @@ module.exports = class Initializer extends Module {
         this.heap.scripts.set(script.name, new Function(...args, script.code));
     }
 
-    spawn (origin, entity) {
+    spawn (id, entity) {
         const kind = Array.from(Entity.__instances__).find(x => x.kind === entity.kind);
         const spawned = kind.create(entity.components);
 
-        this.heap.entities.set(origin, spawned);
+        this.heap.entities.set(id, spawned);
 
         if (entity.script) {
             this.heap.scripts.get(entity.script)(spawned, this.game, Component, Entity, System);

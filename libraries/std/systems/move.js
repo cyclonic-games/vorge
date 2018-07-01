@@ -10,7 +10,7 @@ module.exports = new System('move', [ id, position, velocity ], (entity, game) =
     const p = position.of(entity);
     const v = velocity.of(entity);
 
-    const pixels = 48;
+    const pixels = 64;
     const second = 1000;
     const delta = (Date.now() - game.loop.time) / second;
     const distance = pixels * delta;

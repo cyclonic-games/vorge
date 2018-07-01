@@ -37,6 +37,9 @@ module.exports = new Plugin('common', game => {
     });
 
     game.loop.subscribe('draw').forEach(() => {
+        game.renderer.clear();
+        game.renderer.fill();
+
         std.systems.render2d.run(game.initializer.heap.entities.get(game.world.player), game);
 
         for (const id of game.world.entities) {

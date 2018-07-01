@@ -2,12 +2,15 @@ const Module = require('../core/Module');
 const WebGL = require('../core/WebGL');
 
 const blank = document.createElement('canvas');
-blank.width = 1;
-blank.height = 1;
+blank.width = 16;
+blank.height = 16;
 
 const blankContext = blank.getContext('2d');
+blankContext.fillStyle = '#FFFFFF';
+blankContext.fillRect(0, 0, 16, 16)
 blankContext.fillStyle = '#D3D4D6';
-blankContext.fillRect(0, 0, 1, 1);
+blankContext.fillRect(0, 0, 8, 8);
+blankContext.fillRect(8, 8, 8, 8);
 
 module.exports = class Renderer extends Module {
 
@@ -59,7 +62,40 @@ module.exports = class Renderer extends Module {
     }
 
     clear () {
-        this.webgl.clear();
+        this.webgl.clear(0, 0, 0, 0);
+    }
+
+    fill () {
+        const x = 0;
+        const y = 0;
+        const width = this.webgl.canvas.width;
+        const height = this.webgl.canvas.height;
+
+        this.webgl.uniform('vorge_Texture', blank);
+
+        this.webgl.context.texParameteri(this.webgl.context.TEXTURE_2D, this.webgl.context.TEXTURE_MAG_FILTER, this.webgl.context.NEAREST);
+        this.webgl.context.texParameteri(this.webgl.context.TEXTURE_2D, this.webgl.context.TEXTURE_WRAP_S, this.webgl.context.REPEAT);
+        this.webgl.context.texParameteri(this.webgl.context.TEXTURE_2D, this.webgl.context.TEXTURE_WRAP_T, this.webgl.context.REPEAT);
+
+        this.webgl.input('vorge_Sample', new Float32Array([
+            0, 0,
+            width / blank.width, 0,
+            0, height / blank.height,
+            0, height / blank.height,
+            width / blank.width, 0,
+            width / blank.width, height / blank.height
+        ]));
+
+        this.webgl.input('vorge_Position', new Float32Array([
+            (x | 0), (y | 0),
+            (x | 0) + width, (y | 0),
+            (x | 0), (y | 0) + height,
+            (x | 0), (y | 0) + height,
+            (x | 0) + width, (y | 0),
+            (x | 0) + width, (y | 0) + height
+        ]));
+
+        this.webgl.draw(6);
     }
 
     draw (n) {

@@ -31,7 +31,7 @@ module.exports = class Connection extends Module {
         this.socket.close();
     }
 
-    send (message) {
+    send (id, message) {
         this.socket.send(JSON.stringify(message));
     }
 

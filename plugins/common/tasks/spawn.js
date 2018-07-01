@@ -1,5 +1,5 @@
 module.exports = function spawn (serial, origin) {
-    this.assets.download('shrek.jpg').then(asset => {
+    this.assets.download('stick.png').then(asset => {
         const keyboard = this.devices.find('keyboard');
         const std = this.libraries.use('std');
         const { id, position, texture, velocity } = std.components;
@@ -25,10 +25,7 @@ module.exports = function spawn (serial, origin) {
             if (!keyboard.key('w') && !keyboard.key('s')) velocity.of(entity).y = 0;
             if (!keyboard.key('d') && !keyboard.key('a')) velocity.of(entity).x = 0;
 
-            this.tasks.create('amend', { id: id.of(entity).valueOf(), components: {
-                position: position.of(entity),
-                velocity: velocity.of(entity)
-            } });
+            this.tasks.create('amend', { position: position.of(entity), velocity: velocity.of(entity) });
         });
 
         this.world.begin(this.connection.id);

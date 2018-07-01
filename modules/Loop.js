@@ -28,6 +28,8 @@ module.exports = class Loop extends Module {
     }
 
     draw (frame = 0) {
-        if (this.running) requestAnimationFrame(() => this.draw(++frame % 60));
+        if (this.running) requestAnimationFrame(() => {
+            this.draw(++frame % 60);
+        });
     }
 }
