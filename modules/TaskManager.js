@@ -15,6 +15,6 @@ module.exports = class TaskManager extends Module {
     }
 
     create (name, details, id = this.game.connection.id) {
-        return this.game.connection.send({ task: { name, details }, id }, id);
+        return this.game.connection.send(id, { task: { name, details }, id });
     }
 }
