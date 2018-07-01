@@ -15,6 +15,7 @@ module.exports = class Initializer extends Module {
     }
 
     connect (game) {
+        game.connection.subscribe('close').forEach(method => this.delete(...method.arguments));
         game.tasks.subscribe('initialize').forEach(method => this.initialize(...method.arguments));
         game.tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
     }
@@ -28,6 +29,10 @@ module.exports = class Initializer extends Module {
                 return this.compile(...args, object.spec);
             }
         }
+    }
+
+    delete (id) {
+        this.heap.entities.delete(id);
     }
 
     compile (script) {

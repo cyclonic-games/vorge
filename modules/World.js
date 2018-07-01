@@ -33,6 +33,8 @@ module.exports = class World extends Module {
         game.player.subscribe('live').forEach(method => this.begin(method.arguments[ 0 ]));
         game.player.subscribe('die').forEach(method => this.end(method.arguments[ 0 ]));
         game.player.subscribe('travel').forEach(method => this.navigate(method.arguments[ 0 ]));
+        // =====================================================================
+        game.initializer.subscribe('delete').forEach(method => this.forget(...method.arguments));
     }
 
     begin (id) {
@@ -95,8 +97,8 @@ module.exports = class World extends Module {
 
     }
 
-    forget (entities) {
-
+    forget (id) {
+        this.state.get('entities').delete(id);
     }
 }
 
