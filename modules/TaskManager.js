@@ -7,14 +7,14 @@ module.exports = class TaskManager extends Module {
     }
 
     execute (message) {
-        const { task, origin = this.game.connection.id } = message;
+        const { task, id = this.game.connection.id } = message;
 
         if (task) {
-            this.emit(task.name, [ task.details, origin ]);
+            this.emit(task.name, [ task.details, id ]);
         }
     }
 
-    create (name, details, origin = this.game.connection.id) {
-        return this.game.connection.send({ task: { name, details }, origin }, origin);
+    create (name, details, id = this.game.connection.id) {
+        return this.game.connection.send({ task: { name, details }, id }, id);
     }
 }

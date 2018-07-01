@@ -18,17 +18,14 @@ module.exports = function spawn (serial, origin) {
             if (keyboard.key('s')) velocity.of(entity).y = 1;
             if (keyboard.key('a')) velocity.of(entity).x = -1;
 
-            this.tasks.create('amend', { id: origin, components: {
-                position: position.of(entity),
-                velocity: velocity.of(entity)
-            } });
+            this.tasks.create('amend', { position: position.of(entity), velocity: velocity.of(entity) });
         });
 
         keyboard.subscribe('up').filter(() => [ 'w', 'd', 's', 'a' ].some(key => !keyboard.key(key))).forEach(() => {
             if (!keyboard.key('w') && !keyboard.key('s')) velocity.of(entity).y = 0;
             if (!keyboard.key('d') && !keyboard.key('a')) velocity.of(entity).x = 0;
 
-            this.tasks.create('amend', { id: origin, components: {
+            this.tasks.create('amend', { id: id.of(entity).valueOf(), components: {
                 position: position.of(entity),
                 velocity: velocity.of(entity)
             } });
