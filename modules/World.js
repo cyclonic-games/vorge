@@ -23,7 +23,7 @@ module.exports = class World extends Module {
 
         this.state = new Map([
             [ 'player', null ],
-            [ 'entities', new Map() ]
+            [ 'entities', new Set() ]
         ]);
     }
 
@@ -35,8 +35,8 @@ module.exports = class World extends Module {
         game.player.subscribe('travel').forEach(method => this.navigate(method.arguments[ 0 ]));
     }
 
-    begin (entity) {
-        this.state.set('player', entity);
+    begin (id) {
+        this.state.set('player', id);
     }
 
     end (statistics) {
@@ -87,8 +87,8 @@ module.exports = class World extends Module {
         }
     }
 
-    greet (entity, origin) {
-        this.state.get('entities').set(entity, origin);
+    greet (id) {
+        this.state.get('entities').add(id);
     }
 
     amend (entities) {

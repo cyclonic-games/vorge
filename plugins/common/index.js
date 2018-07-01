@@ -29,18 +29,18 @@ module.exports = new Plugin('common', game => {
     });
 
     game.loop.subscribe('update').forEach(() => {
-        std.systems.move.run(game.world.player, game);
+        std.systems.move.run(game.initializer.heap.entities.get(game.world.player), game);
 
-        for (const [ , entity ] of game.world.entities) {
-            std.systems.move.run(entity, game);
+        for (const id of game.world.entities) {
+            std.systems.move.run(game.initializer.heap.entities.get(id), game);
         }
     });
 
     game.loop.subscribe('draw').forEach(() => {
-        std.systems.render2d.run(game.world.player, game);
+        std.systems.render2d.run(game.initializer.heap.entities.get(game.world.player), game);
 
-        for (const [ , entity ] of game.world.entities) {
-            std.systems.render2d.run(entity, game);
+        for (const id of game.world.entities) {
+            std.systems.render2d.run(game.initializer.heap.entities.get(id), game);
         }
     });
 

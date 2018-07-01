@@ -22,10 +22,10 @@ module.exports = class Initializer extends Module {
     initialize (object, ...args) {
         switch (object.type) {
             case 'entity': {
-                return this.spawn(object.spec, ...args);
+                return this.spawn(...args, object.spec);
             }
             case 'script': {
-                return this.compile(object.spec);
+                return this.compile(...args, object.spec);
             }
         }
     }
@@ -42,7 +42,7 @@ module.exports = class Initializer extends Module {
         this.heap.scripts.set(script.name, new Function(...args, script.code));
     }
 
-    spawn (entity, origin) {
+    spawn (origin, entity) {
         const kind = Array.from(Entity.__instances__).find(x => x.kind === entity.kind);
         const spawned = kind.create(entity.components);
 

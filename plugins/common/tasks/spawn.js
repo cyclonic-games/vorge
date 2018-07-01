@@ -9,7 +9,7 @@ module.exports = function spawn (serial, origin) {
         texture.of(entity).data = asset;
 
         if (origin !== this.connection.id) {
-            return this.world.greet(entity, id.of(entity).valueOf());
+            return this.world.greet(origin);
         }
 
         keyboard.subscribe('down').filter(() => [ 'w', 'd', 's', 'a' ].some(key => keyboard.key(key))).forEach(() => {
@@ -34,6 +34,6 @@ module.exports = function spawn (serial, origin) {
             } });
         });
 
-        this.world.begin(entity);
+        this.world.begin(this.connection.id);
     });
 };
