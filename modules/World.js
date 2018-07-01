@@ -28,12 +28,6 @@ module.exports = class World extends Module {
     }
 
     connect (game) {
-        game.subscribe('entity', 'update').forEach(method => this.amend(method.arguments[ 0 ]));
-        game.subscribe('entity', 'leave').forEach(method => this.forget(method.arguments[ 0 ]));
-        game.player.subscribe('live').forEach(method => this.begin(method.arguments[ 0 ]));
-        game.player.subscribe('die').forEach(method => this.end(method.arguments[ 0 ]));
-        game.player.subscribe('travel').forEach(method => this.navigate(method.arguments[ 0 ]));
-        // =====================================================================
         game.initializer.subscribe('delete').forEach(method => this.forget(...method.arguments));
     }
 
@@ -41,8 +35,8 @@ module.exports = class World extends Module {
         this.state.set('player', id);
     }
 
-    end (statistics) {
-
+    end () {
+        this.state.set('player', null);
     }
 
     navigate (direction) {
@@ -91,10 +85,6 @@ module.exports = class World extends Module {
 
     greet (id) {
         this.state.get('entities').add(id);
-    }
-
-    amend (entities) {
-
     }
 
     forget (id) {

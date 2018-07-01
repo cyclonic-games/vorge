@@ -9,6 +9,7 @@ const vertex = require('./shaders/default/vertex');
 
 const amend = require('./tasks/amend');
 const authorize = require('./tasks/authorize');
+const despawn = require('./tasks/despawn');
 const handshake = require('./tasks/handshake');
 const pong = require('./tasks/pong');
 const spawn = require('./tasks/spawn');
@@ -27,6 +28,7 @@ module.exports = new Plugin('common', game => {
     game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
     game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
     game.tasks.subscribe('amend').forEach(method => amend.apply(game, method.arguments));
+    game.tasks.subscribe('despawn').forEach(method => despawn.apply(game, method.arguments));
 
     game.viewport.subscribe('mount').forEach(() => {
         game.renderer.bind('default', [ fragment, vertex ]);

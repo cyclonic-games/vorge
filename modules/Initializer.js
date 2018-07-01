@@ -48,7 +48,7 @@ module.exports = class Initializer extends Module {
     }
 
     spawn (id, entity) {
-        const kind = Array.from(Entity.__instances__).find(x => x.kind === entity.kind);
+        const kind = Array.from(Entity.kinds).find(x => x.kind === entity.kind);
         const spawned = kind.create(entity.components);
 
         this.heap.entities.set(id, spawned);
