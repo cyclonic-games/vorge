@@ -3,6 +3,8 @@ const Entity = require('../core/Entity');
 const Module = require('../core/Module');
 const System = require('../core/System');
 
+const TARGET = `TARGET_${ Math.round(Math.random() * Date.now()) }`;
+
 module.exports = class Initializer extends Module {
 
     constructor (name, game) {
@@ -37,14 +39,18 @@ module.exports = class Initializer extends Module {
 
     compile (script) {
         const args = [
-            'target',
+            TARGET,
             'game',
             Component.name,
             Entity.name,
             System.name
         ];
 
-        this.heap.scripts.set(script.name, new Function(...args, script.code));
+        this.heap.scripts.set(script.name, new Function(...args, `
+            ${ script.code };
+            // ================================
+            main(${ TARGET });
+        `));
     }
 
     spawn (id, entity) {
