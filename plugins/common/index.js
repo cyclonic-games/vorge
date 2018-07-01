@@ -10,7 +10,10 @@ const vertex = require('./shaders/default/vertex');
 const amend = require('./tasks/amend');
 const authorize = require('./tasks/authorize');
 const handshake = require('./tasks/handshake');
+const pong = require('./tasks/pong');
 const spawn = require('./tasks/spawn');
+
+const utilities = require('./utilities');
 
 module.exports = new Plugin('common', game => {
     const std = game.libraries.use('std');
@@ -20,6 +23,7 @@ module.exports = new Plugin('common', game => {
     game.devices.install(new Mouse('mouse'));
 
     game.tasks.subscribe('handshake').forEach(method => handshake.apply(game, method.arguments));
+    game.tasks.subscribe('pong').forEach(method => pong.apply(game, method.arguments));
     game.tasks.subscribe('authorize').forEach(method => authorize.apply(game, method.arguments));
     game.tasks.subscribe('spawn').forEach(method => spawn.apply(game, method.arguments));
     game.tasks.subscribe('amend').forEach(method => amend.apply(game, method.arguments));
@@ -38,14 +42,13 @@ module.exports = new Plugin('common', game => {
 
     game.loop.subscribe('draw').forEach(() => {
         game.renderer.clear();
-        game.renderer.fill();
 
-        std.systems.render2d.run(game.initializer.heap.entities.get(game.world.player), game);
+        utilities.fill(game.renderer.webgl);
 
         for (const id of game.world.entities) {
             std.systems.render2d.run(game.initializer.heap.entities.get(id), game);
         }
-    });
 
-    Object.assign(window, { game });
+        std.systems.render2d.run(game.initializer.heap.entities.get(game.world.player), game);
+    });
 });
