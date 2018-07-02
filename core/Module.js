@@ -4,10 +4,10 @@ const modules = new Map();
 
 module.exports = new Proxy(class Module extends Event.Emitter {
 
-    constructor (name, game) {
+    constructor (name, host, key = 'game') {
         super(name);
 
-        this.game = game;
+        this[ key ] = host;
     }
 }, {
 
