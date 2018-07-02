@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "git submodule init && git submodule update",
     "_": "webpack && http-server _/"
   },
   "repository": {
