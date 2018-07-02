@@ -8,7 +8,7 @@ module.exports = class Event {
     }
 
     clone () {
-        return new module.exports(this.type, this.when, this.arguments, this.target);
+        return new this.constructor(this.type, this.when, this.arguments, this.target);
     }
 };
 
@@ -16,9 +16,7 @@ module.exports.Emitter = class EventEmitter {
 
     constructor (name) {
         this.kind = name;
-        this.observables = new Map([
-            [ this, new Map() ]
-        ]);
+        this.observables = new Map([ ]);
     }
 
     connect (game) {
@@ -56,6 +54,16 @@ module.exports.Emitter = class EventEmitter {
         }
 
         return observable;
+    }
+
+    unsubscribe (observable) {
+        for (const [ target, subscriptions ] of this.observables) {
+            for (const [ property, observables ] of subscriptions) {
+                for (const o of observables) if (o === observable) {
+                    return observables.splice(observables.indexOf(o), 1)[ 0 ];
+                }
+            }
+        }
     }
 };
 
