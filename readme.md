@@ -77,6 +77,8 @@ Yes, it will! I want to bake the engine and server out, work on the git-based pa
 #### **Screenshots**
 **MANY MORE TO COME**
 
-![](https://cdn.discordapp.com/attachments/239722511741222912/464551477256650762/uiuiui.PNG)
+![](https://media.discordapp.net/attachments/337995840280985610/464600278919020544/uiuiui.PNG?width=970&height=660)
+
+![](https://cdn.discordapp.com/attachments/282274126888960000/464611060909867018/scripting.PNG)
 
 Vorge is actually decently far along in production, but the focus has been lower level internals. There's not a whole lot to show, visually, but you should check out the code in this repository.
