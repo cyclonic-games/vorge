@@ -18,7 +18,8 @@
   "homepage": "https://github.com/cyclonic-games/vorge#readme",
   "dependencies": {
     "encosy": "github:cyclonic-games/encosy",
-    "picasso": "github:cyclonic-games/picasso"
+    "picasso": "github:cyclonic-games/picasso",
+    "scribe": "github:cyclonic-games/scribe"
   },
   "devDependencies": {
     "webpack": "^4.8.3",

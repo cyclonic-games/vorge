@@ -1,4 +1,4 @@
-const Documentation = require('scribe/Documentation');
+const Documentation = require('scribe/core/Documentation');
 
 const Game = require('../../core/Game');
 
