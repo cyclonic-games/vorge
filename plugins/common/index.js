@@ -1,4 +1,4 @@
-const Plugin = require('../../core/Plugin');
+const Plugin = require('quantum/core/Plugin');
 
 const Gamepad = require('./devices/Gamepad');
 const Keyboard = require('./devices/Keyboard');

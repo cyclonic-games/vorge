@@ -1,9 +1,9 @@
-const Module = require('../core/Module');
+const Module = require('quantum/core/Module');
 
 module.exports = class Loop extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
         this.running = false;
         this.time = Date.now();

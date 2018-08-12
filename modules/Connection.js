@@ -1,24 +1,24 @@
-const Module = require('../core/Module');
+const Module = require('quantum/core/Module');
 
 module.exports = class Connection extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
-        this.host = null;
+        this.address = null;
         this.id = null;
         this.socket = null;
     }
 
-    connect (game) {
-        game.subscribe('play').forEach(method => this.establish(...method.arguments));
-        game.subscribe('quit').forEach(method => this.disconnect(...method.arguments));
-        game.tasks.subscribe('handshake').forEach(method => this.ready(...method.arguments));
+    connect () {
+        this[ Module.host ].subscribe('play').forEach(method => this.establish(...method.arguments));
+        this[ Module.host ].subscribe('quit').forEach(method => this.disconnect(...method.arguments));
+        this[ Module.host ].tasks.subscribe('handshake').forEach(method => this.ready(...method.arguments));
     }
 
-    establish (host) {
-        this.host = host;
-        this.socket = new WebSocket(`ws://${ host }`);
+    establish (address) {
+        this.address = address;
+        this.socket = new WebSocket(`ws://${ address }`);
         this.socket.onmessage = event => this.emit('message', [ JSON.parse(event.data) ]);
         this.socket.onerror = error => this.disconnect(error);
     }
@@ -36,7 +36,7 @@ module.exports = class Connection extends Module {
     }
 
     fetch (path, options = { }) {
-        return fetch(`http://${ this.host }/${ path }`, Object.assign(options, {
+        return fetch(`http://${ this.address }/${ path }`, Object.assign(options, {
             headers: Object.assign(options.headers || { }, {
                 authorization: `connection ${ this.id }`
             })

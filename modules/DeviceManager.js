@@ -1,11 +1,11 @@
-const Module = require('../core/Module');
+const Module = require('quantum/core/Module');
 
 const devices = new Set();
 
 module.exports = class DeviceManager extends Module {
 
     install (device) {
-        device.connect(this.game);
+        device.connect(this[ Module.host ]);
         devices.add(device);
     }
 

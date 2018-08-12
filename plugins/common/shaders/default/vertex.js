@@ -1,6 +1,6 @@
-const WebGL = require('../../../../core/WebGL');
+const Shader = require('quantum/core/Shader');
 
-module.exports = new WebGL.Shader('vertex', `
+module.exports = new Shader('vertex', `
     uniform vec2 vorge_Resolution;
     in vec2 vorge_Position;
     in vec2 vorge_Sample;

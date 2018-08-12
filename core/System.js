@@ -1,3 +1,3 @@
-const { System } = require('encosy');
+const { Component, System } = require('encosy');
 
 module.exports = System;

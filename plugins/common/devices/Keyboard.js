@@ -1,4 +1,4 @@
-const Event = require('../../../core/Event');
+const Event = require('quantum/core/Event');
 
 module.exports = class Keyboard extends Event.Emitter {
 

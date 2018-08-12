@@ -1,9 +1,9 @@
-const Module = require('../core/Module');
+const Module = require('quantum/core/Module');
 
 module.exports = class AssetManager extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
         this.cache = new Map();
         this.queue = new Set();
@@ -28,7 +28,7 @@ module.exports = class AssetManager extends Module {
             return download.request;
         }
 
-        const fetch = this.game.connection.fetch.bind(this.game.connection);
+        const fetch = this[ Module.host ].connection.fetch.bind(this[ Module.host ].connection);
         const download = new AssetManager.Download(filename, this);
 
         this.queue.add(download);

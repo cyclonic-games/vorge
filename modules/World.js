@@ -1,4 +1,4 @@
-const Module = require('../core/Module');
+const Module = require('quantum/core/Module');
 
 module.exports = class World extends Module {
 
@@ -18,8 +18,8 @@ module.exports = class World extends Module {
         return this.state.set('chunks', chunks);
     }
 
-    constructor (kind, game) {
-        super(kind, game);
+    constructor (host) {
+        super(host);
 
         this.state = new Map([
             [ 'player', null ],
@@ -27,8 +27,8 @@ module.exports = class World extends Module {
         ]);
     }
 
-    connect (game) {
-        game.initializer.subscribe('delete').forEach(method => this.forget(...method.arguments));
+    connect () {
+        this[ Module.host ].initializer.subscribe('delete').forEach(method => this.forget(...method.arguments));
     }
 
     begin (id) {

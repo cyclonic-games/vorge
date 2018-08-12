@@ -3,9 +3,14 @@ module.exports = class Library {
     constructor (name, lib) {
         this.kind = name;
 
+        this.actions = { };
         this.components = { };
         this.entities = { };
         this.systems = { };
+
+        for (const action of lib.actions) {
+            this.actions[ action.kind ] = action;
+        }
 
         for (const component of lib.components) {
             this.components[ component.kind ] = component;

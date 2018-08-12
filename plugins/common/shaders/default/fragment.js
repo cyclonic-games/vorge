@@ -1,6 +1,6 @@
-const WebGL = require('../../../../core/WebGL');
+const Shader = require('picasso/core/Shader');
 
-module.exports = new WebGL.Shader('fragment', `
+module.exports = new Shader('fragment', `
     precision mediump float;
 
     uniform sampler2D vorge_Texture;

@@ -1,12 +1,13 @@
+const Module = require('quantum/core/Module');
+
 const Library = require('../core/Library');
-const Module = require('../core/Module');
 
 const std = require('../libraries/std');
 
 module.exports = class LibraryManager extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
         this.collection = new Map();
 

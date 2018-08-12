@@ -1,23 +1,24 @@
-const Module = require('../core/Module');
-const WebGL = require('../core/WebGL');
+const Module = require('quantum/core/Module');
+
+const Painter = require('picasso/core/Painter');
 
 module.exports = class Renderer extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
         this.dimensions = 2;
         this.webgl = null;
         this.layers = [ ];
     }
 
-    connect (game) {
-        game.viewport.subscribe('mount').forEach(method => this.attach(...method.arguments));
-        game.viewport.subscribe('resize').forEach(method => this.adjust(...method.arguments));
+    connect () {
+        this[ Module.host ].viewport.subscribe('mount').forEach(method => this.attach(...method.arguments));
+        this[ Module.host ].viewport.subscribe('resize').forEach(method => this.adjust(...method.arguments));
     }
 
     attach () {
-        this.webgl = new WebGL(this.game.viewport.canvas);
+        this.webgl = new Painter(this[ Module.host ].viewport.canvas);
     }
 
     bind (name, shaders) {
@@ -32,7 +33,7 @@ module.exports = class Renderer extends Module {
     }
 
     adjust () {
-        const { width, height } = this.game.viewport.canvas;
+        const { width, height } = this[ Module.host ].viewport.canvas;
 
         this.webgl.viewport(0, 0, width, height);
         this.webgl.uniform('vorge_Resolution', new Float32Array([ width, height ]));

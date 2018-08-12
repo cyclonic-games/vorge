@@ -1,14 +1,15 @@
+const Module = require('quantum/core/Module');
+
 const Component = require('../core/Component');
 const Entity = require('../core/Entity');
-const Module = require('../core/Module');
 const System = require('../core/System');
 
 const TARGET = `TARGET_${ Math.round(Math.random() * Date.now()) }`;
 
 module.exports = class Initializer extends Module {
 
-    constructor (name, game) {
-        super(name, game);
+    constructor (host) {
+        super(host);
 
         this.heap = Object.freeze({
             entities: new Map(),
@@ -16,10 +17,10 @@ module.exports = class Initializer extends Module {
         });
     }
 
-    connect (game) {
-        game.connection.subscribe('close').forEach(method => this.delete(...method.arguments));
-        game.tasks.subscribe('initialize').forEach(method => this.initialize(...method.arguments));
-        game.tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
+    connect () {
+        this[ Module.host ].connection.subscribe('close').forEach(method => this.delete(...method.arguments));
+        this[ Module.host ].tasks.subscribe('initialize').forEach(method => this.initialize(...method.arguments));
+        this[ Module.host ].tasks.subscribe('runScript').forEach(method => this.run(...method.arguments));
     }
 
     initialize (object, ...args) {
@@ -46,11 +47,11 @@ module.exports = class Initializer extends Module {
             System.name
         ];
 
-        this.heap.scripts.set(script.name, new Function(...args, `
+        this.heap.scripts.set(script.name, new Function(...args, `(async () => {
             ${ script.code };
             // ================================
             main(${ TARGET });
-        `));
+        })()`));
     }
 
     spawn (id, entity) {
