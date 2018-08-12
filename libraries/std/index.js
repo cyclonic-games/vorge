@@ -8,12 +8,11 @@ const velocity = require('./components/velocity');
 
 const player = require('./entities/player');
 
-const example = require('./macros/example');
-
 const move = require('./systems/move');
 const render2d = require('./systems/render2d');
 
 module.exports = new Library('std', {
+    actions: [ ],
     components: [
         id,
         position,
@@ -23,9 +22,6 @@ module.exports = new Library('std', {
     ],
     entities: [
         player
-    ],
-    macros: [
-        example
     ],
     systems: [
         move,
