@@ -1,4 +1,4 @@
-const Shader = require('quantum/core/Shader');
+const Shader = require('picasso/core/Shader');
 
 module.exports = new Shader('vertex', `
     uniform vec2 vorge_Resolution;
